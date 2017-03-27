@@ -1,0 +1,81 @@
+<header>
+    <h1>Coursio API Documentation</h1>
+</header>
+
+<h3>General</h3>
+
+<p>
+    An API method is always called via an HTTP POST request to an entity-named endpoint. Exact method name and any
+    possible parameters are placed into the request payload and encoded as a JSON string. RPC model has a routing
+    advantage over REST in our quite complex case and allows us to use the same API calls internally if we need to
+    prerender JSON data into the view before serving the page.
+</p>
+<p>
+    API uses <em>camelCased</em> names rather than <em>under_scored</em>.
+</p>
+
+<hr>
+<h3>HTTP request structure</h3>
+<p>All the fields except <strong>method</strong> are not obligatory.</p>
+<pre>
+{
+    "method": "someMethod",   // method name
+    "data":
+    {
+        ...                   // all the function arguments go here
+    }
+    "pageStart": 0,           // data output starting row
+    "pageLength": 10          // data output row limit
+}</pre>
+
+<p>
+    If no output page limit is specified, then no limitation is performed. Normally you will not need to use
+    pagination as in many cases nice filtering is available within the methods themselves.
+</p>
+
+<hr>
+<h3>Responses structure</h3>
+<pre>
+{
+    "isError": false,         // a boolean showing the overall operation result
+    "errMsg": null,           // possible error message string
+    "data":
+    {
+        ...                   // output from the called method
+    }
+}</pre>
+
+<hr>
+<h3>HTTP response codes</h3>
+
+<table class="real-table">
+    <thead>
+    <tr><th>Code</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>400</td><td>Invalid data was sent.</td></tr>
+    <tr><td>401</td><td>Function requires proper authentication.</td></tr>
+    <tr><td>403</td><td>Access for the current user is denied.</td></tr>
+    <tr><td>404</td><td>Function doesn't exist.</td></tr>
+    <tr><td>500</td><td>Internal error or an undefined situation.</td></tr>
+    </tbody>
+</table>
+
+<hr>
+<h3>Authentication</h3>
+<p>
+    If user login was successful the server sends back the session identifier (<strong>sessionId</strong>
+    property in the response structure). This identifier may be later sent together with any API call to work
+    within the same login session. Identifier is sent in an HTTP header <strong>Token</strong>.
+</p>
+
+<hr>
+<h3>Testing</h3>
+<p>
+    For testing purposes one may use a version of API connected to a test database
+    (<a href="https://t-api.s.coursio.com/">https://t-api.s.coursio.com/</a>). All external services (e.g. payments
+    providers) connected to this version are also in test mode. Test database is at regular intervals synchronized
+    with a production one, so do not count on keeping your data there for a long period.
+</p>
+
+<hr>

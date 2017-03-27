@@ -1,0 +1,25 @@
+{
+  "input":
+  {
+    "dirs":
+    [
+      "src"
+    ],
+    "rootUrl": "/api"
+  },
+  "output":
+  {
+    "dir": "output",
+    "filename": "index.html"
+  },
+  "exclude":
+  [
+    "ExcludeMe.php",
+    "DoNotScan.php"
+  ],
+  "templates":
+  {
+    "dir": "my-templates",
+    "overwrite": ["header","footer"]
+  }
+}
