@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>API Documentation</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+</head>
+
+<body id="api-docs" class="container-fluid">
+<div id="docz">
+    [HEADER]
+
+    <h3>Available functions</h3>
+    <p>
+        Click on a specific endpoint to see a list of functions contained. Click on a function name to see a list of
+        parameters. Use 'Test' button to test API live. As the majority of function will require authentication, you
+        may use login form at the bottom of this page to log in.
+    </p>
+
+    <a class="toggle-all" href="#">Toggle all</a>
+
+    <ul>
+    [LIST_COLLECTIONS]
+    </ul>
+
+    [FOOTER]
+
+</div>
+<div id="console">
+    <form class="login-form container-float form-inline">
+        <input type="email" class="form-control identity" placeholder="Email"/>
+        <input type="password" class="form-control credential" placeholder="Password"/>
+        <button class="btn btn-default btn-login">Login</button>
+        <button class="btn btn-info btn-clear">Clear console</button>
+    </form>
+
+    <textarea cols="30"></textarea>
+</div>
+</body>
+
+<script>
+    document.querySelector('.login-form .identity').value = localStorage.getItem('login-identity');
+    document.querySelector('.login-form .credential').value = localStorage.getItem('login-credential');
+
+    document.querySelector('.toggle-all').onclick = function()
+    {
+      document.querySelectorAll('.togglable').forEach(function (item)
+      {
+        item.style.display = item.style.display === 'block' ? 'none' : 'block';
+      });
+      return false
+    };
+    document.querySelector('.toggle-local').onclick = function()
+    {
+      this.parentNode.parentNode.querySelectorAll('.procedures.togglable').forEach(function (item)
+      {
+        item.style.display = item.style.display === 'block' ? 'none' : 'block';
+      });
+      return false
+    };
+    document.querySelector('.toggle-method').onclick = function()
+    {
+      this.parentNode.parentNode.querySelectorAll('.api-form.togglable').forEach(function (item)
+      {
+        item.style.display = item.style.display === 'block' ? 'none' : 'block';
+      });
+      return false
+    };
+
+    function log(text, mode)
+    {
+        var textarea = document.querySelector('#console textarea');
+        mode = mode | 0;
+        textarea.value += (Array(15).join('—')) + ' ' + new Date().toUTCString() + ' ' + (Array(15).join('—')) + "\n";
+        textarea.value += (mode ? text : JSON.stringify(text, null, 2)) + "\n";
+        textarea.scrollTop = textarea.scrollHeight;
+    }
+
+    function incarnate(id)
+    {
+        id = id || 0;
+        if (id)
+        {
+            call(document.location.origin + '/api/auth', 'incarnate', {userId: id})
+        }
+        else
+        {
+            call(document.location.origin + '/api/auth', 'wakeUp')
+        }
+    }
+
+    function call(url, method, params, page)
+    {
+        var pageStart = 0, pageLength = 25;
+
+        if (typeof page !== "undefined")
+        {
+            pageStart = page.start;
+            pageLength = page.length;
+        }
+
+        // make a request
+        $.ajax(
+                {
+                    type: 'POST',
+                    url: url,
+                    data: JSON.stringify({ method:method, data:params, pageStart:pageStart, pageLength:pageLength}),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function(json)
+                    {
+                        if (json.isError) alert('API error: ' + json.errMsg);
+                        else
+                        {
+                            console.log(json);
+                            log(json.data)
+                        }
+                    },
+                    error: function (data)
+                    {
+                        console.error(data);
+
+                        if (data.responseText)
+                        {
+                            log(JSON.parse(data.responseText))
+                        }
+
+                        if (data.status === 401) alert('You need to be logged in')
+                    }
+                });
+    }
+
+    document.querySelector('.api-form button').onclick = function()
+    {
+        var url = $(this).parents('.api-data-url').data('url'),
+            method = $(this).parents('.api-data-method').data('method'),
+            params = {};
+
+        try
+        {
+          // list parameters
+          $(this).parents('.api-form').find('tbody tr').each(function(i, e)
+          {
+            var key = $(e).find('.name').text(), value = $(e).find('.value').val(), type = $(e).find('.type').text();
+
+            if (value == 'null') value = '';
+
+            if (!key.length || !value.length) return;
+            try
+            {
+              params[key] = type == 'array' ? JSON.parse(value) : value;
+            }
+            catch (e)
+            {
+              log('Cannot parse JSON from ' + value + ': ' + e);
+              throw e;
+            }
+          });
+        }
+        catch (e)
+        {
+          return false;
+        }
+
+        var parent = this.parent();
+
+        call(url, method, params, {start: parent.find('.page-start').val() - 0, length: parent.find('.page-length').val() - 0});
+
+        return false
+    };
+
+    document.querySelector('.login-form .btn-login').onclick = function()
+    {
+        var params =
+        {
+            identity:   document.querySelector('.login-form .identity').value,
+            credential: document.querySelector('.login-form .credential').value
+        };
+
+        localStorage.setItem('login-identity', params.identity);
+        localStorage.setItem('login-credential', params.credential);
+
+        $.ajax(
+        {
+            type: 'POST',
+            url: '/api/auth',
+            data: JSON.stringify({ method:'login', data:params }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function(json)
+            {
+                if (json.isError) alert('Login failed: ' + json.errMsg);
+                else alert('Logged in');
+                log(json.data)
+            },
+            failure: function(json)
+            {
+                console.error(json);
+                log(json, 1)
+            }
+        });
+
+        return false
+    };
+
+    document.querySelector('.login-form .btn-clear').onclick = function()
+    {
+        document.querySelector('#console textarea').value = '';
+        return false
+    };
+</script>
+
+</html>
