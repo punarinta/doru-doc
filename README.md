@@ -1,2 +1,2 @@
 # doru-doc
-Automatic documentor, maily for PHP
+Automatic documentor for APIs
