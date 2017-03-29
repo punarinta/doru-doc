@@ -80,6 +80,7 @@ class DoruDoc
             '[HEADER]'              => $this->tpl->header,
             '[LIST_COLLECTIONS]'    => $mainHtml,
             '[FOOTER]'              => $this->tpl->footer,
+            '[API_ROOT]'            => $this->rootUrl,
         )));
 
         return '';

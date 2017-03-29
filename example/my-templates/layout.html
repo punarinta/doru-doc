@@ -89,11 +89,11 @@
         id = id || 0;
         if (id)
         {
-            call(document.location.origin + '/api/auth', 'incarnate', {userId: id})
+            call(document.location.origin + '[API_ROOT]/auth', 'incarnate', {userId: id})
         }
         else
         {
-            call(document.location.origin + '/api/auth', 'wakeUp')
+            call(document.location.origin + '[API_ROOT]/auth', 'wakeUp')
         }
     }
 
@@ -210,7 +210,7 @@
       localStorage.setItem('login-credential', params.credential);
 
       var r = new XMLHttpRequest();
-      r.open('POST', '/api/auth', true);
+      r.open('POST', '[API_ROOT]/auth', true);
       r.send(JSON.stringify({ method:'login', data:params }));
 
       r.onload = function ()
