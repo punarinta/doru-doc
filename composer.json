@@ -2,7 +2,7 @@
   "name": "punarinta/doru-doc",
   "description": "Automatic documentor for APIs",
   "license": "MIT",
-  "keywords": ["array", "access"],
+  "keywords": ["documentor", "API", "apidoc"],
   "authors":
   [
     {
