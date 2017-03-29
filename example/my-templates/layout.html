@@ -169,9 +169,9 @@
           // list parameters
           parents(this, 'api-form').querySelectorAll('tbody tr').forEach(function (item)
           {
-            var key = item.querySelector('.name') ? item.querySelector('.name').value : '',
-              value = item.querySelector('.value') ? item.querySelector('.value').value : '',
-              type = item.querySelector('.type') ? item.querySelector('.type').value : '';
+            var key = item.querySelector('.name') ? item.querySelector('.name').innerText : '',
+                value = item.querySelector('.value') ? item.querySelector('.value').value : '',
+                type = item.querySelector('.type') ? item.querySelector('.type').innerText : '';
 
             if (value === 'null') value = '';
 
