@@ -52,22 +52,28 @@
       });
       return false
     };
-    document.querySelector('.toggle-local').onclick = function()
+    document.querySelectorAll('.toggle-local').forEach(function (item)
     {
-      this.parentNode.parentNode.querySelectorAll('.procedures.togglable').forEach(function (item)
+      item.onclick = function()
       {
-        item.style.display = item.style.display === 'block' ? 'none' : 'block';
-      });
-      return false
-    };
-    document.querySelector('.toggle-method').onclick = function()
+        item.parentNode.parentNode.querySelectorAll('.procedures.togglable').forEach(function (item)
+        {
+          item.style.display = item.style.display === 'block' ? 'none' : 'block';
+        });
+        return false
+      }
+    });
+    document.querySelectorAll('.toggle-method').forEach(function (item)
     {
-      this.parentNode.parentNode.querySelectorAll('.api-form.togglable').forEach(function (item)
+      item.onclick = function()
       {
-        item.style.display = item.style.display === 'block' ? 'none' : 'block';
-      });
-      return false
-    };
+        item.parentNode.parentNode.querySelectorAll('.api-form.togglable').forEach(function (item)
+        {
+          item.style.display = item.style.display === 'block' ? 'none' : 'block';
+        });
+        return false
+      }
+    });
 
     function log(text, mode)
     {
