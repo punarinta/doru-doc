@@ -136,11 +136,13 @@
       r.send(JSON.stringify({ method:method, data:params, pageStart:pageStart, pageLength:pageLength}));
     }
 
-    document.querySelector('.api-form button').onclick = function()
+    document.querySelectorAll('.api-form button').forEach(function (item)
     {
-        var url = parents(this, 'api-data-url').dataset.url,
-            method = parents(this, 'api-data-method').dataset.method,
-            params = {};
+      item.onclick = function()
+      {
+        var url = document.location.origin + parents(this, 'api-data-url').dataset.url,
+          method = parents(this, 'api-data-method').dataset.method,
+          params = {};
 
         try
         {
@@ -148,8 +150,8 @@
           parents(this, 'api-form').querySelectorAll('tbody tr').forEach(function (item)
           {
             var key = item.querySelector('.name') ? item.querySelector('.name').value : '',
-                value = item.querySelector('.value') ? item.querySelector('.value').value : '',
-                type = item.querySelector('.type') ? item.querySelector('.type').value : '';
+              value = item.querySelector('.value') ? item.querySelector('.value').value : '',
+              type = item.querySelector('.type') ? item.querySelector('.type').value : '';
 
             if (value === 'null') value = '';
 
@@ -176,7 +178,8 @@
         call(url, method, params, { start: parent.querySelector('.page-start').value - 0, length: parent.querySelector('.page-length').value - 0 });
 
         return false
-    };
+      }
+    });
 
     document.querySelector('.login-form .btn-clear').onclick = function()
     {
