@@ -30,13 +30,20 @@
 </div>
 <div id="console">
     <form class="login-form container-float form-inline">
+        <input type="email" class="form-control identity" placeholder="Email"/>
+        <input type="password" class="form-control credential" placeholder="Password"/>
+        <button class="btn btn-default btn-login">Login</button>
         <button class="btn btn-info btn-clear">Clear console</button>
     </form>
+
     <textarea cols="30"></textarea>
 </div>
 </body>
 
 <script>
+    document.querySelector('.login-form .identity').value = localStorage.getItem('login-identity');
+    document.querySelector('.login-form .credential').value = localStorage.getItem('login-credential');
+
     document.querySelector('.toggle-all').onclick = function()
     {
       document.querySelectorAll('.togglable').forEach(function (item)
@@ -75,6 +82,19 @@
         textarea.value += (new Array(15).join('—')) + ' ' + new Date().toUTCString() + ' ' + (new Array(15).join('—')) + "\n";
         textarea.value += (mode ? text : JSON.stringify(text, null, 2)) + "\n";
         textarea.scrollTop = textarea.scrollHeight;
+    }
+
+    function incarnate(id)
+    {
+        id = id || 0;
+        if (id)
+        {
+            call(document.location.origin + '/api/auth', 'incarnate', {userId: id})
+        }
+        else
+        {
+            call(document.location.origin + '/api/auth', 'wakeUp')
+        }
     }
 
     function parents(x, className)
@@ -176,6 +196,41 @@
         call(url, method, params, { start: parent.querySelector('.page-start').value - 0, length: parent.querySelector('.page-length').value - 0 });
 
         return false
+    };
+
+    document.querySelector('.login-form .btn-login').onclick = function()
+    {
+      var params =
+      {
+        identity:   document.querySelector('.login-form .identity').value,
+        credential: document.querySelector('.login-form .credential').value
+      };
+
+      localStorage.setItem('login-identity', params.identity);
+      localStorage.setItem('login-credential', params.credential);
+
+      var r = new XMLHttpRequest();
+      r.open('POST', '/api/auth', true);
+      r.send(JSON.stringify({ method:'login', data:params }));
+
+      r.onload = function ()
+      {
+        var r = this.response.toString(),
+            json = JSON.parse(r.responseText);
+
+        if (json.isError) alert('Login failed: ' + json.errMsg);
+        else alert('Logged in');
+        log(json.data)
+      };
+
+      r.onerror = function (data)
+      {
+        JSON.parse(data.responseText);
+        console.error(data);
+        log(JSON.parse(data.responseText), 1)
+      };
+
+      return false
     };
 
     document.querySelector('.login-form .btn-clear').onclick = function()

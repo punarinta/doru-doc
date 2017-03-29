@@ -20,6 +20,7 @@ pre {display: inline-block}
 .pagination input {width: 80px}
 #console {display: none; padding:20px 0 0 5px; position: fixed; right:0}
 #console textarea {width: 100%; height: calc(100vh - 95px); font-family: monospace}
+#console form {min-height: 32px}
 
 @media screen and (min-width: 1024px)
 {
