@@ -47,6 +47,11 @@ class DoruDoc
         $outputFile = isset ($this->config->output->filename) ? $this->config->output->filename : 'index.html';
         $this->rootUrl = isset ($this->config->input->rootUrl) ? $this->config->input->rootUrl : '/';
 
+        if (!file_exists($outputDir))
+        {
+            mkdir($outputDir);
+        }
+
         // Get files list
 
         foreach ($this->config->input->dirs as $directory)
