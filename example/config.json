@@ -4,13 +4,13 @@
     "dirs":
     [
       "src"
-    ],
-    "rootUrl": "/api"
+    ]
   },
   "output":
   {
     "dir": "output",
-    "filename": "index.html"
+    "filename": "index.html",
+    "rootUrl": "/api"
   },
   "exclude":
   [

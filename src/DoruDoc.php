@@ -45,7 +45,7 @@ class DoruDoc
 
         $outputDir = isset ($this->config->output->dir) ? $this->config->output->dir : getcwd();
         $outputFile = isset ($this->config->output->filename) ? $this->config->output->filename : 'index.html';
-        $this->rootUrl = isset ($this->config->input->rootUrl) ? $this->config->input->rootUrl : '/';
+        $this->rootUrl = isset ($this->config->output->rootUrl) ? $this->config->output->rootUrl : '/';
 
         if (!file_exists($outputDir))
         {
