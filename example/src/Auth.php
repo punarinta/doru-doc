@@ -36,6 +36,13 @@ class Auth
      *
      * @return bool
      * @throws \Exception
+     *
+     * @doc-output
+     * {
+     *      "id":       (int) user ID,
+     *      "name":     (string) user name,
+     *      "email":    (string) user email,
+     * }
      */
     static function register()
     {
