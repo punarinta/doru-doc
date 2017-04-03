@@ -21,6 +21,7 @@ pre {display: inline-block}
 #console {display: none; padding:20px 0 0 5px; position: fixed; right:0}
 #console textarea {width: 100%; height: calc(100vh - 95px); font-family: monospace}
 #console form {min-height: 32px}
+footer {margin: 16px 0}
 
 @media screen and (min-width: 1024px)
 {
