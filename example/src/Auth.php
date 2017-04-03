@@ -61,4 +61,14 @@ class Auth
     {
         return true;
     }
+
+    /**
+     * [no-doc] This method will not get into the documentation
+     *
+     * @return bool
+     */
+    static function secret()
+    {
+        return true;
+    }
 }
