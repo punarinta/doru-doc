@@ -170,6 +170,10 @@ class DoruDoc
             if (!strlen($description))
             {
                 $description = trim($docLine);
+                if (strpos($description, '[no-doc]') === 0)
+                {
+                    return '';
+                }
             }
 
             if (preg_match_all("/^.*@doc-var (.*)\$/m", $docLine, $matches))
