@@ -86,6 +86,7 @@ class DoruDoc
             '[LIST_COLLECTIONS]'    => $mainHtml,
             '[FOOTER]'              => $this->tpl->footer,
             '[API_ROOT]'            => $this->rootUrl,
+            '[TIMESTAMP]'           => date('Y-m-d H:m:i'),
         )));
 
         return '';
