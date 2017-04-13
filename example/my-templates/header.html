@@ -1,17 +1,13 @@
 <header>
-    <h1>Coursio API Documentation</h1>
+    <h1>Sample API Documentation</h1>
 </header>
 
 <h3>General</h3>
 
 <p>
     An API method is always called via an HTTP POST request to an entity-named endpoint. Exact method name and any
-    possible parameters are placed into the request payload and encoded as a JSON string. RPC model has a routing
-    advantage over REST in our quite complex case and allows us to use the same API calls internally if we need to
-    prerender JSON data into the view before serving the page.
-</p>
-<p>
-    API uses <em>camelCased</em> names rather than <em>under_scored</em>.
+    possible parameters are placed into the request payload and encoded as a JSON string. API uses <em>camelCased</em>
+    names rather than <em>under_scored</em>.
 </p>
 
 <hr>
@@ -67,15 +63,6 @@
     If user login was successful the server sends back the session identifier (<strong>sessionId</strong>
     property in the response structure). This identifier may be later sent together with any API call to work
     within the same login session. Identifier is sent in an HTTP header <strong>Token</strong>.
-</p>
-
-<hr>
-<h3>Testing</h3>
-<p>
-    For testing purposes one may use a version of API connected to a test database
-    (<a href="https://t-api.s.coursio.com/">https://t-api.s.coursio.com/</a>). All external services (e.g. payments
-    providers) connected to this version are also in test mode. Test database is at regular intervals synchronized
-    with a production one, so do not count on keeping your data there for a long period.
 </p>
 
 <hr>

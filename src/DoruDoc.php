@@ -129,7 +129,7 @@ class DoruDoc
 
             if (!$m2) break;
 
-            $procedures[] = explode("\n", str_replace('*', '', substr($php, $m1 + 1, $m2 - $m1 - 1)));
+            $procedures[] = explode("\n", str_replace(['     * ', '*'], ['',''], substr($php, $m1 + 1, $m2 - $m1 - 1)));
         }
 
         foreach ($procedures as $procedure)
@@ -160,8 +160,10 @@ class DoruDoc
     protected function scanProcedure($procedure, $baseUrl)
     {
         $html = '';
-        $procedureName = '';
+        $output = '';
         $description = '';
+        $startOutput = false;
+        $procedureName = '';
 
         $endLine = end($procedure);
 
@@ -185,6 +187,19 @@ class DoruDoc
                 }
             }
 
+            if (trim($docLine) == '/')
+            {
+                $startOutput = false;
+            }
+            if ($startOutput)
+            {
+                $output .= str_replace('\t', "\t", rtrim($docLine)) . "\n";
+            }
+            if (trim($docLine) == '@doc-output')
+            {
+                $startOutput = true;
+            }
+
             if ($docLine == $endLine)
             {
                 $endLine = explode(' ', $endLine);
@@ -196,11 +211,13 @@ class DoruDoc
 
         return strtr($this->tpl->procedure, array
         (
-            '[NAME]'           => $procedureName,
-            '[DESCRIPTION]'    => $description,
-            '[PATH]'           => $baseUrl,
-            '[HIDE_FORM]'      => strlen($html) ? '' : 'hidden',
-            '[LIST_VARIABLES]' => $html,
+            '[NAME]'            => $procedureName,
+            '[DESCRIPTION]'     => $description,
+            '[PATH]'            => $baseUrl,
+            '[HIDE_FORM]'       => strlen($html) ? '' : 'hidden',
+            '[LIST_VARIABLES]'  => $html,
+            '[OUTPUT_HIDDEN]'   => $output ? '' : 'hidden',
+            '[OUTPUT]'          => $output,
         ));
     }
 

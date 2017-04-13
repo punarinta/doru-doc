@@ -15,6 +15,7 @@ li.collection {list-style: none; display: table-row}
 h3 a {text-decoration:none!important;}
 header {text-align:center;margin:35px 0 30px;}
 pre {display: inline-block}
+.api-result pre {max-width: 90%;}
 .real-table {border:1px solid #ccc}
 .real-table tr * {border:1px solid #ccc; padding:5px 10px !important}
 .pagination input {width: 80px}
