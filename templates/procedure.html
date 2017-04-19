@@ -6,7 +6,7 @@
     </div>
 
     <form class="api-form togglable">
-        <table class="table table-bordered parameters [HIDE_FORM]">
+        <table class="parameters [HIDE_FORM]">
             <thead>
             <tr>
                 <th>Parameter</th>
@@ -19,25 +19,28 @@
             [LIST_VARIABLES]
             </tbody>
         </table>
-        <table class="table pagination">
-            <tbody>
-            <tr>
-                <td>Page start:</td>
-                <td>
-                    <input class="form-control value page-start" type="text" value="0">
-                </td>
-                <td>Page length:</td>
-                <td>
-                    <input class="form-control value page-length" type="text" value="25">
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <button class="btn btn-default">Test</button>
-        <div class="api-result [OUTPUT_HIDDEN]">
-            <hr>
-            Output fields: <br><br>
+        <fieldset>
+            <legend>Test</legend>
+            <table class="pagination">
+                <tbody>
+                <tr>
+                    <td>Page start:</td>
+                    <td>
+                        <input class="page-start" type="number" value="0">
+                    </td>
+                    <td>Page length:</td>
+                    <td>
+                        <input class="page-length" type="number" value="25">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button>Run</button>
+        </fieldset>
+
+        <fieldset class="api-result [OUTPUT_HIDDEN]">
+            <legend>Output fields</legend>
             <pre>[OUTPUT]</pre>
-        </div>
+        </fieldset>
     </form>
 </li>

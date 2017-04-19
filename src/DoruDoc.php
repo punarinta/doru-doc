@@ -76,7 +76,6 @@ class DoruDoc
             mkdir("$outputDir/css");
         }
 
-        copy(__DIR__ . '/../templates/media/bootstrap.min.css', "$outputDir/css/bootstrap.min.css");
         copy(__DIR__ . '/../templates/media/styles.css', "$outputDir/css/styles.css");
         copy(__DIR__ . '/../templates/media/favicon.ico', "$outputDir/favicon.ico");
 

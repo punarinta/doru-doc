@@ -1,27 +1,64 @@
-.hidden,.togglable {display: none}
-table {border-collapse: collapse}
-td {padding-top:15px !important}
-td input {margin-top:-6px !important}
-hr {border-bottom: 0}
+* {outline: none}
+body, h1, h2, h3, p, td, th
+{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: #333;
+    font-weight: normal;
+}
+h1 {font-size: 36px}
+h3 {font-size: 24px; margin-bottom: 12px}
+a {color: #337ab7; text-decoration: none}
+p {margin: 0 0 10px; font-size: 14px; line-height: 1.4}
+input, button, select
+{
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 14px;
+    color: #333;
+}
+input[type="date"] {padding: 6px;}
+select {padding: 7px 12px;}
+button, select {cursor: pointer}
+button:hover {background: #eee}
+input:focus {border-color: #46b8da}
+
+.hidden, .togglable {display: none}
+table {border-collapse: collapse; border: 1px solid #ddd; border-radius: 2px; width: 100%}
+td, th {padding: 8px; border: 1px solid #ddd; font-size: 14px; line-height: 1.4}
+th {font-weight: bold; padding: 12px 8px;}
+hr {border-bottom: 0; border-top: 1px solid #ccc; margin: 12px 0}
+fieldset {border: 1px solid #ddd; border-radius: 2px; margin: 0}
 li.procedure {list-style: none; padding: 25px 15px; border-bottom: 1px solid #e0e0e0}
-li.collection {list-style: none; display: block;}
+li.collection {list-style: none; display: block}
 .procedure .name {font-weight: bold}
-.parameters {margin-top: 10px}
+.parameters {margin: 10px 0 16px;}
 .api-form button {margin-top: 10px}
 .api-result {margin: 20px 0 0}
 .red, .required td {color: rgb(255, 95, 0)}
-.login-form {margin:10px 0 30px 40px}
-.btn-clear {float: right; margin-right: 20px}
-h3 a {text-decoration:none!important;}
-header {text-align:center;margin:35px 0 30px;}
-pre {display: inline-block; max-width: 100%;}
-.real-table {border:1px solid #ccc}
-.real-table tr * {border:1px solid #ccc; padding:5px 10px !important}
+.login-form {margin: 10px 0 30px 40px}
+.btn-clear {float: right; margin-right: 20px; background: #46b8da; color: #fff; border: 1px solid #46b8da}
+.btn-clear:hover {background: #32abda}
+.pagination, .pagination td {border: 0}
+
+header {text-align: center; margin: 35px 0 30px}
+pre
+{
+    display: inline-block;
+    max-width: calc(100% - 20px);
+    background: #f5f5f5;
+    padding: 9px;
+    border: 1px solid #ccc;
+    color: #333;
+    overflow: auto;
+    border-radius: 2px;
+}
 .pagination input {width: 80px}
 #console {display: none; padding:20px 0 0 5px; position: fixed; right:0}
 #console textarea {width: 100%; height: calc(100vh - 95px); font-family: monospace}
 #console form {min-height: 32px}
-footer {margin: 16px 0}
+footer {margin: 24px 0 16px}
 
 @media screen and (min-width: 1024px)
 {
