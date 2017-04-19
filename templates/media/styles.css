@@ -41,6 +41,7 @@ li.collection {list-style: none; display: block}
 .btn-clear {float: right; margin-right: 20px; background: #46b8da; color: #fff; border: 1px solid #46b8da}
 .btn-clear:hover {background: #32abda}
 .pagination, .pagination td {border: 0}
+textarea {color: #333; line-height: 1.4;}
 
 header {text-align: center; margin: 35px 0 30px}
 pre
